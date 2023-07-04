@@ -1,5 +1,4 @@
 # distutils: language = c++
-# distutils: sources = mt19937.cpp
 
 
 cdef extern from "quaternion.h":
