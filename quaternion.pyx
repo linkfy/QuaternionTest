@@ -1,10 +1,12 @@
 # distutils: language = c++
 # distutils: sources = mt19937.cpp
 
+
 cdef extern from "quaternion.h":
     cdef cppclass Quaternion:
         float w, x, y, z
         Quaternion(float, float, float, float)
+        float dot(const Quaternion* q)
 
 cdef class PyQuaternion:
 
@@ -19,6 +21,9 @@ cdef class PyQuaternion:
         if self._thisptr != NULL:
             del self._thisptr
     
+    def dot(self, PyQuaternion q):
+        return self._thisptr.dot(q._thisptr)
+
     @property
     def w(self):
         return self._thisptr.w
