@@ -24,6 +24,12 @@ struct Quaternion {
         q1->z * q2->z);
   }
 
+  int quaternionIsIdentity()
+  {
+    return (this->x == 0.0 && this->y == 0.0 && this->z == 0.0 &&
+          this->w == 1.0);
+  }
+
 
 	float w,x,y,z;
 };

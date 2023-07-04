@@ -6,6 +6,7 @@ cdef extern from "quaternion.h":
         float w, x, y, z
         Quaternion(float, float, float, float)
         float dot(const Quaternion* q)
+        int quaternionIsIdentity()
 
 cdef class PyQuaternion:
 
@@ -22,6 +23,9 @@ cdef class PyQuaternion:
     
     def dot(self, PyQuaternion q):
         return self._thisptr.dot(q._thisptr)
+
+    def isIdentity(self):
+        return self._thisptr.quaternionIsIdentity()
 
     @property
     def w(self):
