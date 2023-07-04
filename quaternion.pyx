@@ -18,6 +18,39 @@ cdef class PyQuaternion:
     def __dealloc__(self):
         if self._thisptr != NULL:
             del self._thisptr
+    
+    @property
+    def w(self):
+        return self._thisptr.w
+    
+    @w.setter
+    def w(self, value):
+        self._thisptr.w = value
+    
+    @property
+    def x(self):
+        return self._thisptr.x
+    
+    @x.setter
+    def x(self, value):
+        self._thisptr.x = value 
+    
+    @property
+    def y(self):
+        return self._thisptr.y
+
+    @y.setter
+    def y(self, value):
+        self._thisptr.y = value 
+    
+    @property
+    def z(self):
+        return self._thisptr.z
+
+    @z.setter
+    def z(self, value):
+        self._thisptr.z = value 
+    
 
 """
 cdef class RNG:
