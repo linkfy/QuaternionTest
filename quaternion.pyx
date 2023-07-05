@@ -7,11 +7,14 @@ cdef extern from "quaternion.h":
         Quaternion(float, float, float, float)
         float dot(const Quaternion* q)
         int quaternionIsIdentity()
+        Quaternion* quaternionMultiply(Quaternion* pOut,
+								 const Quaternion* q1,
+								 const Quaternion* q2)
 
 cdef class PyQuaternion:
 
     cdef Quaternion *_thisptr
-
+    
     def __cinit__(self, float _w, float _x, float _y, float _z):
         self._thisptr = new Quaternion(_w, _x, _y, _z)
         if self._thisptr == NULL:
@@ -26,6 +29,11 @@ cdef class PyQuaternion:
 
     def isIdentity(self):
         return self._thisptr.quaternionIsIdentity()
+
+    def multiply(self, PyQuaternion q):
+        result = PyQuaternion(0,0,0,0)
+        self._thisptr.quaternionMultiply(result._thisptr, self._thisptr, q._thisptr)
+        return result
 
     @property
     def w(self):
@@ -59,24 +67,3 @@ cdef class PyQuaternion:
     def z(self, value):
         self._thisptr.z = value 
     
-
-"""
-cdef class RNG:
-
-    cdef MT_RNG *_thisptr
-
-    def __cinit__(self, unsigned long s):
-        self._thisptr = new MT_RNG(s)
-        if self._thisptr == NULL:
-            raise MemoryError()
-
-    def __dealloc__(self):
-        if self._thisptr != NULL:
-            del self._thisptr
-
-    cpdef unsigned long randint(self):
-        return self._thisptr.genrand_int32()
-
-    cpdef double rand(self):
-        return self._thisptr.genrand_real1()
-"""
