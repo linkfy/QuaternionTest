@@ -34,6 +34,12 @@ cdef class PyQuaternion:
         result = PyQuaternion(0,0,0,0)
         self._thisptr.quaternionMultiply(result._thisptr, self._thisptr, q._thisptr)
         return result
+    
+    @staticmethod
+    def quaternionMultiply(PyQuaternion q1, PyQuaternion q2):
+        result = PyQuaternion(0,0,0,0)
+        q1._thisptr.quaternionMultiply(result._thisptr, q1._thisptr, q2._thisptr)
+        return result
 
     @property
     def w(self):
